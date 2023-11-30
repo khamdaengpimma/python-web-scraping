@@ -1,0 +1,25 @@
+
+{% extends "base.html" %}
+{% block content %}
+
+{% load static %}
+{% include "navbar.html" %}
+<div class="container mt-5">
+    <h1 class="mt-4 mb-4">{% if texth%} {{texth }}
+        {% else %}Thư Viện Ebook Miễn Phí {% endif %}</h1>
+    <div class="row">
+      <!-- Left column with image -->
+      <div class="col-md-4">
+        <img src="{% if items.img%} {{ items.img }}
+        {% else %}{% static 'img/book.png' %}{% endif %}" alt="Book Cover" class="img-fluid">
+      </div>
+      <!-- Right column with name, link, and information -->
+      <div class="col-md-8">
+        <h2>{{ items.title}}</h2>
+        <a href="{{items.doc}}?doc=pdf" class="btn btn-primary custom-btn" target="_blank" data-mdb-ripple-init>Read Now</a>
+        <br>
+        <p>{{items.text}}</p>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

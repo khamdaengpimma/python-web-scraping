@@ -1,0 +1,13 @@
+py -m venv name
+cmd
+
+venv\Scripts\activate.bat
+
+cd divsite
+
+py -m pip install Django
+
+pip list kiem tra co django chua
+
+py manage.py runserver
+ 

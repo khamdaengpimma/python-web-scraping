@@ -1,0 +1,53 @@
+{% load static %}
+
+<div class="container">
+
+    <h1 class="mt-4 mb-4 text-xl-center">{% if texth%} {{texth }}
+        {% else %}Thư Viện Ebook Miễn Phí {% endif %}</h1>
+    <div class="row">
+        {% for item in items %}
+        <div class="col-md-3">
+            <div class="card" onclick="submitForm('{{ item.link }}','{{ item.text }}')">
+              <img src="{% if item.img%} {{ item.img }}
+              {% else %}{% static 'img/book.png' %}{% endif %}" class="card-img-top" alt="Project 1">
+              <div class="card-body">
+                <h5 class="card-title">{{ item.text }}</h5>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <script>
+        function submitForm(link,t) {
+          // Create a form element dynamically
+          var form = document.createElement('form');
+          form.method = 'post';
+          form.action = '{{action}}';
+      
+          // Create a hidden input field for CSRF token
+          var csrfInput = document.createElement('input');
+          csrfInput.type = 'hidden';
+          csrfInput.name = 'csrfmiddlewaretoken';
+          csrfInput.value = '{{ csrf_token }}';
+          var key = document.createElement('input');
+          key.type = 'hidden';
+          key.name = 'key';
+          key.value = link;
+
+          var title = document.createElement('input');
+          title.type = 'hidden';
+          title.name = 'title';
+          title.value = t;
+            
+          // Append the CSRF token input to the form
+          form.appendChild(csrfInput);
+          form.appendChild(key);
+          form.appendChild(title);
+            console.log(title)
+          // Append the form to the body and submit it
+          document.body.appendChild(form);
+          form.submit();
+        }
+      </script>
+      
+  </div>
